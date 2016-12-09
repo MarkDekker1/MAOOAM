@@ -26,10 +26,15 @@ Lpa_0=lda_0/(Ga*f0)
 sc=1.0
 
 AllVars=[]
-icdict={}
 for i in range(1,37):
     AllVars.append('X'+str(i))
-    icdict[AllVars[i-1]]=0.0
+
+def InitialConditions(val):
+    icdict={}
+    for i in range(1,37):
+        AllVars.append('X'+str(i))
+        icdict[AllVars[i-1]]=val
+    return icdict
     
 # --------------------------------------------------------------------------- #
 # Equations
@@ -71,7 +76,6 @@ def CreateEquations_spec(lda,d,Co):
         EQNS[AllVars[i]]=EQ
         
 def CreateEquations_general():
-    global EQNS
     global AOT
     
     AOT=AOTTENSOR(lda_0,d_0,Co_0)
@@ -152,7 +156,6 @@ def CreateEquations_general():
     return EQNS
     
 def Equations(state,t=0):
-    global EQNS
     X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,X21,X22,X23,X24,X25,X26,X27,X28,X29,X30,X31,X32,X33,X34,X35,X36 = state
     list2=[]
     for i in range(0,36):
